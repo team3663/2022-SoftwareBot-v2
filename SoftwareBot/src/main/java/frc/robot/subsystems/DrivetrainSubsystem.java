@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 import frc.robot.Constants;
-import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
+import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -42,44 +42,44 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public DrivetrainSubsystem() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Drivetrain");
 
-        frontLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+        frontLeftModule = Mk4SwerveModuleHelper.createFalcon500(
                 shuffleboardTab.getLayout("Front Left Module", BuiltInLayouts.kList)
                         .withSize(2, 4)
                         .withPosition(0, 0),
-                Mk3SwerveModuleHelper.GearRatio.STANDARD,
+                Mk4SwerveModuleHelper.GearRatio.L4,
                 Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR,
                 Constants.FRONT_LEFT_MODULE_STEER_MOTOR,
                 Constants.FRONT_LEFT_MODULE_STEER_ENCODER,
                 Constants.FRONT_LEFT_MODULE_STEER_OFFSET
         );
 
-        frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
+        frontRightModule = Mk4SwerveModuleHelper.createFalcon500(
                 shuffleboardTab.getLayout("Front Right Module", BuiltInLayouts.kList)
                         .withSize(2, 4)
                         .withPosition(2, 0),
-                Mk3SwerveModuleHelper.GearRatio.STANDARD,
+                Mk4SwerveModuleHelper.GearRatio.L4,
                 Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR,
                 Constants.FRONT_RIGHT_MODULE_STEER_MOTOR,
                 Constants.FRONT_RIGHT_MODULE_STEER_ENCODER,
                 Constants.FRONT_RIGHT_MODULE_STEER_OFFSET
         );
 
-        backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+        backLeftModule = Mk4SwerveModuleHelper.createFalcon500(
                 shuffleboardTab.getLayout("Back Left Module", BuiltInLayouts.kList)
                         .withSize(2, 4)
                         .withPosition(4, 0),
-                Mk3SwerveModuleHelper.GearRatio.STANDARD,
+                Mk4SwerveModuleHelper.GearRatio.L4,
                 Constants.BACK_LEFT_MODULE_DRIVE_MOTOR,
                 Constants.BACK_LEFT_MODULE_STEER_MOTOR,
                 Constants.BACK_LEFT_MODULE_STEER_ENCODER,
                 Constants.BACK_LEFT_MODULE_STEER_OFFSET
         );
 
-        backRightModule = Mk3SwerveModuleHelper.createFalcon500(
+        backRightModule = Mk4SwerveModuleHelper.createFalcon500(
                 shuffleboardTab.getLayout("Back Right Module", BuiltInLayouts.kList)
                         .withSize(2, 4)
                         .withPosition(6, 0),
-                Mk3SwerveModuleHelper.GearRatio.STANDARD,
+                Mk4SwerveModuleHelper.GearRatio.L4,
                 Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR,
                 Constants.BACK_RIGHT_MODULE_STEER_MOTOR,
                 Constants.BACK_RIGHT_MODULE_STEER_ENCODER,
