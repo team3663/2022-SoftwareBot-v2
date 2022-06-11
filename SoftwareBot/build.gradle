@@ -45,9 +45,21 @@ wpi.java.debugJni = false
 // Set this to true to enable desktop support.
 def includeDesktopSupport = false
 
+repositories {
+    maven {
+        url 'https://cpr3663.jfrog.io/artifactory/default-maven-virtual'
+        credentials {
+            username "$mavenUser"
+            password "$mavenPassword"
+        }
+    }
+}
+
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
+    implementation(group: 'com.cpr3663', name: 'common-robot', version: '0.0.3')
+
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
 
