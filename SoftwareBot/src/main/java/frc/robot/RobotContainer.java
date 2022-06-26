@@ -4,6 +4,7 @@ import com.cpr3663.Library;
 
 import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -11,20 +12,27 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 public class RobotContainer {
     private final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 
-    private final XboxController controller = new XboxController(0);
+    private final XboxController controller = new XboxController(Constants.DRIVE_CONTROLLER_PORT);
+
+    private final DriveCommand driveCommand;
 
     public RobotContainer() {
         drivetrain.register();
 
-        drivetrain.setDefaultCommand(new DriveCommand(
-                drivetrain,
-                () -> -modifyAxis(controller.getLeftY()), // Axes are flipped here on purpose
-                () -> -modifyAxis(controller.getLeftX()),
-                () -> -modifyAxis(controller.getRightX())
-        ));
+        driveCommand = new DriveCommand(
+            drivetrain,
+            () -> -modifyAxis(controller.getLeftY()), // Axes are flipped here on purpose
+            () -> -modifyAxis(controller.getLeftX()),
+            () -> -modifyAxis(controller.getRightX()),
+            false);
+
+        drivetrain.setDefaultCommand(driveCommand);
 
         new Button(controller::getBackButtonPressed)
                 .whenPressed(drivetrain::zeroGyroscope);
+        
+        new Button(controller::getStartButtonPressed)
+                .whenPressed(driveCommand::ToggleDriveMode);
     }
 
     public DrivetrainSubsystem getDrivetrain() {
@@ -53,13 +61,13 @@ public class RobotContainer {
         return value;
     }
 
-      /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return null;
-  }
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        // An ExampleCommand will run in autonomous
+        return null;
+    }
 }

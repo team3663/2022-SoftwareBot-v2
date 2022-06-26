@@ -11,19 +11,34 @@ public class DriveCommand extends CommandBase {
     private final DoubleSupplier translationXSupplier;
     private final DoubleSupplier translationYSupplier;
     private final DoubleSupplier rotationSupplier;
+    private boolean driveMode;
 
+    /**
+   * Creates a Drive Command for the curent vector goal of the robot
+   * @param drivetrain A DrivetrainSubsystem to drive.
+   * @param translationXSupplier A DoubleSupplier providing the X translasion power on a scale from -1 to 1. 
+   * @param translationYSupplier A DoubleSupplier providing the Y translasion power on a scale from -1 to 1. 
+   * @param translationXSupplier A DoubleSupplier providing the rotation power on a scale from  -1 to 1.
+   * @param driveMode a boolean true for Robot orented false for field oriented 
+   */
     public DriveCommand(
             DrivetrainSubsystem drivetrain,
             DoubleSupplier translationXSupplier,
             DoubleSupplier translationYSupplier,
-            DoubleSupplier rotationSupplier
+            DoubleSupplier rotationSupplier,
+            boolean driveMode
     ) {
         this.drivetrain = drivetrain;
         this.translationXSupplier = translationXSupplier;
         this.translationYSupplier = translationYSupplier;
         this.rotationSupplier = rotationSupplier;
+        this.driveMode = driveMode;
 
         addRequirements(drivetrain);
+    }
+    public void ToggleDriveMode(){
+        driveMode = !driveMode;
+
     }
 
     @Override
