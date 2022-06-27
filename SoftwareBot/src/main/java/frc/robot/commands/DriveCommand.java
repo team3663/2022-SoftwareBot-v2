@@ -19,7 +19,7 @@ public class DriveCommand extends CommandBase {
    * @param translationXSupplier A DoubleSupplier providing the X translasion power on a scale from -1 to 1. 
    * @param translationYSupplier A DoubleSupplier providing the Y translasion power on a scale from -1 to 1. 
    * @param translationXSupplier A DoubleSupplier providing the rotation power on a scale from  -1 to 1.
-   * @param driveMode a boolean true for Robot orented false for field oriented 
+   * @param driveMode a boolean true for robot oriented false for field oriented.
    */
     public DriveCommand(
             DrivetrainSubsystem drivetrain,
@@ -38,7 +38,6 @@ public class DriveCommand extends CommandBase {
     }
     public void ToggleDriveMode(){
         driveMode = !driveMode;
-
     }
 
     @Override
@@ -46,15 +45,24 @@ public class DriveCommand extends CommandBase {
         double translationXPercent = translationXSupplier.getAsDouble();
         double translationYPercent = translationYSupplier.getAsDouble();
         double rotationPercent = rotationSupplier.getAsDouble();
+        ChassisSpeeds chassisSpeed;
 
-        drivetrain.drive(
-                ChassisSpeeds.fromFieldRelativeSpeeds(
-                        translationXPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-                        translationYPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-                        rotationPercent * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
-                        drivetrain.getRotation()
-                )
-        );
+        if(driveMode == true){
+        //For robot oriented
+        chassisSpeed = new ChassisSpeeds(
+            translationXPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+            translationYPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+            rotationPercent * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
+        }else{
+        //For field oriented
+        chassisSpeed = ChassisSpeeds.fromFieldRelativeSpeeds(
+            translationXPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+            translationYPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+            rotationPercent * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
+            drivetrain.getRotation());
+        }
+
+        drivetrain.drive(chassisSpeed);
     }
 
     @Override

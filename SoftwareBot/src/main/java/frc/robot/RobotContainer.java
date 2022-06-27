@@ -28,9 +28,11 @@ public class RobotContainer {
 
         drivetrain.setDefaultCommand(driveCommand);
 
+        //Zero Gryo
         new Button(controller::getBackButtonPressed)
                 .whenPressed(drivetrain::zeroGyroscope);
         
+        //Change Drive Mode
         new Button(controller::getStartButtonPressed)
                 .whenPressed(driveCommand::ToggleDriveMode);
     }
